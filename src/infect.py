@@ -1,8 +1,10 @@
+from matplotlib import pyplot as plt
 import ndlib.models.ModelConfig as mc
 import ndlib.models.epidemics as ep
+import networkx as nx
 
 
-def infect_graph(g):
+def infect_graph(g, title):
   """
   Function to infect the graph using SI model.
   Parameters:
@@ -17,10 +19,11 @@ def infect_graph(g):
   model = ep.SIModel(G)
 
   # Model Configuration
-  cfg = mc.Configuration()
-  cfg.add_model_parameter('beta', 0.03)
-  cfg.add_model_parameter("fraction_infected", 0.06)
-  model.set_initial_status(cfg)
+  config = mc.Configuration()
+  config.add_model_parameter('beta', 0.03)
+  config.add_model_parameter('gamma', 0.01)
+  config.add_model_parameter("fraction_infected", 0.06)
+  model.set_initial_status(config)
 
   # Simulation execution
   iterations = model.iteration_bunch(200)
@@ -34,6 +37,13 @@ def infect_graph(g):
           if(i['status'][j]==1):
               time_of_diffusion[j]=i['iteration']
   timeOfDiffusions.append(len(time_of_diffusion))
+  
+  nodeColor = []
+  for i in G.nodes():
+    if iterations[0]["status"][i]==1:
+      nodeColor.append('red')
+    else:
+      nodeColor.append('blue')
 
   print("Time of diffusion: ")
   # print(time_of_diffusion)
@@ -46,4 +56,8 @@ def infect_graph(g):
               sorted_dict[k] = time_of_diffusion[k]
   print("\nSorted Values of diffusion time: ")
   # print(sorted_dict)
+  plt.clf()
+  nx.draw(G, node_color=nodeColor, with_labels=True)
+  plt.savefig(f'./plots/{title}_infect.png')
+
   return (G, time_of_diffusion)

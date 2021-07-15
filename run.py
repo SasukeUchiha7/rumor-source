@@ -15,7 +15,7 @@ _legends = [Line2D([0], [0], marker='o', color='w', label='Source', markerfaceco
 def run():
   title ="football"
   G, node_len = make_graph(title=title)
-  G, time_of_diffusion = infect_graph(G)
+  G, time_of_diffusion = infect_graph(G, title=title)
   k0 = math.ceil(math.sqrt(len(G)))
   np.random.seed(54)
   O = np.random.choice(len(G),k0, replace=False).tolist()
@@ -43,10 +43,8 @@ def run():
   score_list = [score[i][0] for i in range(5)]
   for i in nodes:
       if i in score_list:
-          print(f"red : {i}")
           node_color.append('red')
       elif i in O:
-          print(f"green : {i}")
           node_color.append('green')
       else:
           node_color.append('blue')
