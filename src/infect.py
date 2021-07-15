@@ -3,6 +3,14 @@ import ndlib.models.epidemics as ep
 
 
 def infect_graph(g):
+  """
+  Function to infect the graph using SI model.
+  Parameters:
+    g: Graph 
+  Returns:
+    G : Infected graph
+    t : Time of diffusion of each node
+  """
   G=g
   timeOfDiffusions=[]
   # Model selection - diffusion time

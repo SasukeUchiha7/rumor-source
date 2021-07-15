@@ -2,20 +2,22 @@
 import networkx as nx
 import numpy as np
 
-from helpers import *
+from src.helpers import *
 
 
 def GMLA(G,O,k0, sigma2, mn):
   """Main Function
 
   Parameters:
-    a : 
-    b : 
+    G : Graph
+    O : Observers node list
+    k0 : Constant k0
+    simga2 : Sigma^2 (var) of diffudion time
+    mn :  Mean of diffusion time
   Returns:
-    c : 
+    sortedScore (list[tuple]) : Sorted scores of node based on the algo. 
   """
   ##sort obs
-
   ## filtering k0 nos from O.
   nearestObs = O[0:k0]
   ## selecting first_observer
@@ -43,7 +45,7 @@ def GMLA(G,O,k0, sigma2, mn):
       print("type of score: ",type(score))
       sortedTv = sorted(Tv.items(), key=lambda x:x[1], reverse=True)
       print(sortedTv)
-      v = [list(sortedTv)[0],sortedTv[list(sortedTv)[0]]]
+      v = [(sortedTv)[0][0],(sortedTv)[0][1]]
       S.update(Tv)
       maxScore = v[1]
     else:
@@ -52,8 +54,8 @@ def GMLA(G,O,k0, sigma2, mn):
   sortedScore = sorted(S.items(), key=lambda x: x[1], reverse=True)
 
   print("The rumor scores order: ")
-  for k, v in sortedScore.items():
-    print(f'{k} : {v}')
+  for i in range(len(sortedScore)):
+    print(f'{sortedScore[i][0]} : {sortedScore[i][1]}')
 
   return sortedScore
 

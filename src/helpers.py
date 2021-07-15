@@ -23,23 +23,36 @@ def height_node(T, s, node):
     else:
         return len(l[0]) - 1
 
-def deterministicDelay(T, s, O, mi):
+def deterministicDelay(T, s, O, mn):
     """
-    Computes mu_s
-    :param T: tree
-    :param s: source
-    :param O: list of observers
-    :param mi: mean
-    :return:
+    Computes mu_n
+    
+    Parameters:
+        T : Tree
+        s : source node
+        O : Observers node list
+        mn : Mean of diffusion time
+    Returns:
+        mu_n : 
     """
     constant = height_node(T, s, O[0])
-    mi_s = np.zeros(shape=(len(O) - 1, 1))
+    mu_n = np.zeros(shape=(len(O) - 1, 1))
     for i in range(len(O) - 1):
-        mi_s[i][0] = height_node(T, s, O[i + 1]) - constant
-    mi_s = mi * mi_s
-    return mi_s
+        mu_n[i][0] = height_node(T, s, O[i + 1]) - constant
+    mu_n = mn * mu_n
+    return mu_n
 
 def delayCovariance(T, O, sigma2):
+    """
+    Calculates the delta_n
+
+    Parameters:
+        T : Tree
+        O : Observers node list
+        sigma2 : sigma^2 (var) of diffusion time
+    Returns:
+        delta :
+    """
     # TODO stop using all_simple_paths (complexity)
     n = len(O)
     delta = np.zeros(shape=(n - 1, n - 1))

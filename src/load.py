@@ -1,10 +1,18 @@
 import pandas as pd
 import networkx as nx
-import numpy as np
 
 def from_pandas_dataframe(df, source, target, edge_attr=None, create_using=None):
+    """
+    Creats graph using dataframe.
+    Parameters:
+        df : DataFrame
+        source : source column
+        target : target column
+        edge_attr : edge attributes if any.
+    Returns:
+        G : Required graph
+    """
     g = nx.Graph()
-
     # Index of source and target
     src_i = df.columns.get_loc(source)
     tar_i = df.columns.get_loc(target)
@@ -35,14 +43,19 @@ def from_pandas_dataframe(df, source, target, edge_attr=None, create_using=None)
     return g
 
 def make_graph(title):
-  np.random.seed(54)  
+  """ Read the CSV file
+  
+  Returns:
+  g : Graph
+  n : node length
+  """ 
   filename = title
   df = pd.read_csv(f'./data/{title}.csv', delimiter=',')
   df = df[["Source", "Target"]].astype(int)
   print(df)
   g = from_pandas_dataframe(df, source='Source', target='Target')
-  nx.draw(g,with_labels = True)
   node_len = len(g.nodes)
-  # plt.savefig(filename + "data_PTVA1.png")
+  # nx.draw(g,with_labels = True)
+  # plt.savefig(filename + "data_GMLA1.png")
   # plt.show()
   return g, node_len
