@@ -20,5 +20,5 @@
     ```
     python run.py <filename>
     ```
-    **filename** should be the name of the edgelist file (csv) should be present in the data folder.
+    **filename** should be the name of the edgelist file (csv) that should be present in the data folder.
 2. All the plots will be stored in **plots** folder.
