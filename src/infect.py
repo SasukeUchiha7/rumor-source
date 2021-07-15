@@ -36,7 +36,7 @@ def infect_graph(g):
   timeOfDiffusions.append(len(time_of_diffusion))
 
   print("Time of diffusion: ")
-  print(time_of_diffusion)
+  # print(time_of_diffusion)
   sorted_values = sorted(time_of_diffusion.values()) # Sort the values
   sorted_dict = {}
 
@@ -44,6 +44,6 @@ def infect_graph(g):
       for k in time_of_diffusion.keys():
           if time_of_diffusion[k] == i:
               sorted_dict[k] = time_of_diffusion[k]
-  print("\nSorted Values: ")
-  print(sorted_dict)
+  print("\nSorted Values of diffusion time: ")
+  # print(sorted_dict)
   return (G, time_of_diffusion)

@@ -39,12 +39,11 @@ def GMLA(G,O,k0, sigma2, mn):
         delta_n = delayCovariance(diffusionTree, O, sigma2)
         inverse = np.linalg.inv(delta_n)
         score = (np.exp(-.5 * np.dot(np.dot((d - mu_n).T, inverse), (d - mu_n)))) / (np.sqrt(abs(np.linalg.det(delta_n))))
-        print("score: ", score)
+        print(f" for {n} neighbor of {v[0]}, score: {score}")
         Tv[n] = score[0][0]
     if len(Tv) !=0:
-      print("type of score: ",type(score))
       sortedTv = sorted(Tv.items(), key=lambda x:x[1], reverse=True)
-      print(sortedTv)
+      print(f"Dont know what this is for {v[0]}  --> {v[1]}: {sortedTv}")
       v = [(sortedTv)[0][0],(sortedTv)[0][1]]
       S.update(Tv)
       maxScore = v[1]

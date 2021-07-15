@@ -1,5 +1,6 @@
 import pandas as pd
 import networkx as nx
+import matplotlib.pyplot as plt
 
 def from_pandas_dataframe(df, source, target, edge_attr=None, create_using=None):
     """
@@ -49,13 +50,14 @@ def make_graph(title):
   g : Graph
   n : node length
   """ 
-  filename = title
   df = pd.read_csv(f'./data/{title}.csv', delimiter=',')
   df = df[["Source", "Target"]].astype(int)
+  print("DataFrame: -------------------")
   print(df)
   g = from_pandas_dataframe(df, source='Source', target='Target')
   node_len = len(g.nodes)
-  # nx.draw(g,with_labels = True)
-  # plt.savefig(filename + "data_GMLA1.png")
+  plt.clf()
+  nx.draw(g,with_labels = True)
+  plt.savefig(f'./plots/{title}_data.png')
   # plt.show()
   return g, node_len
