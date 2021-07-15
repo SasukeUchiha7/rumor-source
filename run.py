@@ -1,19 +1,34 @@
+import sys
 import numpy as np
 import math
 import matplotlib.pyplot as plt
 import networkx as nx
 from matplotlib.lines import Line2D
 
+
 from src.infect import *
 from src.load import make_graph
 from src import algos
+
+
 
 _legends = [Line2D([0], [0], marker='o', color='w', label='Source', markerfacecolor='r', markersize=15),
                 Line2D([0], [0], marker='o', color='w', label='Observers', markerfacecolor='g', markersize=15),
                 Line2D([0], [0], marker='o', color='w', label='Others', markerfacecolor='b', markersize=15),]
 
 def run():
-  title ="football"
+  """
+  Main function
+  
+  Plots 3 graphs :
+    1. Original graph
+    2. Infected graph
+    3. Predicted graph
+  """
+  if len(sys.argv)<2:
+      print("Please pass the dataset name...")
+      return
+  title = sys.argv[1]
   G, node_len = make_graph(title=title)
   G, time_of_diffusion = infect_graph(G, title=title)
   k0 = math.ceil(math.sqrt(len(G)))
