@@ -2,7 +2,7 @@
 import networkx as nx
 import numpy as np
 
-from src.helpers import *
+from src.GMLA.helpers import *
 
 
 def GMLA(G,O,k0, sigma2, mn):
@@ -39,11 +39,10 @@ def GMLA(G,O,k0, sigma2, mn):
         delta_n = delayCovariance(diffusionTree, O, sigma2)
         inverse = np.linalg.inv(delta_n)
         score = (np.exp(-.5 * np.dot(np.dot((d - mu_n).T, inverse), (d - mu_n)))) / (np.sqrt(abs(np.linalg.det(delta_n))))
-        print(f" for {n} neighbor of {v[0]}, score: {score}")
+        # print(f" for {n} neighbor of {v[0]}, score: {score}")
         Tv[n] = score[0][0]
     if len(Tv) !=0:
       sortedTv = sorted(Tv.items(), key=lambda x:x[1], reverse=True)
-      print(f"Dont know what this is for {v[0]}  --> {v[1]}: {sortedTv}")
       v = [(sortedTv)[0][0],(sortedTv)[0][1]]
       S.update(Tv)
       maxScore = v[1]
@@ -52,7 +51,7 @@ def GMLA(G,O,k0, sigma2, mn):
 
   sortedScore = sorted(S.items(), key=lambda x: x[1], reverse=True)
 
-  print("The rumor scores order: ")
+  print("\nThe rumor scores order: ")
   for i in range(len(sortedScore)):
     print(f'{sortedScore[i][0]} : {sortedScore[i][1]}')
 
