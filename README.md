@@ -21,6 +21,7 @@
     python run.py <algo_name> <dataset>
     ```
     **algo_name** : only 'ptva' or 'gmla' is available.
+    
     **dataset** :should be the name of the edgelist file (csv) that should be present in the data folder.
 
 2. All the plots will be stored in **plots** folder.
