@@ -14,7 +14,6 @@ def infect_graph(g, title):
     t : Time of diffusion of each node
   """
   G=g
-  timeOfDiffusions=[]
   # Model selection - diffusion time
   model = ep.SIModel(G)
   nos = 1/len(G)
@@ -27,15 +26,14 @@ def infect_graph(g, title):
   # Simulation execution
   iterations = model.iteration_bunch(200)
 
-  #Mapping diffusion_time_to_each_node
-  time_of_diffusion={}
+  diffusionTime={}
   for i in range(1,len(G)):
-      time_of_diffusion[i]=-1
+      diffusionTime[i]=-1
+
   for i in iterations:
       for j in i['status']:
           if(i['status'][j]==1):
-              time_of_diffusion[j]=i['iteration']
-  timeOfDiffusions.append(len(time_of_diffusion))
+              diffusionTime[j]=i['iteration']
   
   nodeColor = []
   source_nodes = []
@@ -46,20 +44,21 @@ def infect_graph(g, title):
     else:
       nodeColor.append('blue')
 
-  # print("Time of diffusion: ")
-  # print(time_of_diffusion)
-  sorted_values = sorted(time_of_diffusion.values()) # Sort the values
+  sorted_values = sorted(diffusionTime.values()) # Sort the values
   sorted_dict = {}
 
   for i in sorted_values:
-      for k in time_of_diffusion.keys():
-          if time_of_diffusion[k] == i:
-              sorted_dict[k] = time_of_diffusion[k]
-  # print("\nSorted Values of diffusion time: ")
-  # print(sorted_dict)
+      for k in diffusionTime.keys():
+          if diffusionTime[k] == i:
+              sorted_dict[k] = diffusionTime[k]
+
   plt.clf()
   nx.draw(G, node_color=nodeColor, with_labels=True)
   plt.title('Intial Phase')
   plt.savefig(f'./plots/{title}_Initial-infect.png')
+  plt.clf()
+  nx.draw(G, node_color=list(x for i,x in diffusionTime.items()),cmap=plt.cm.Reds, with_labels=True)
+  plt.title('Final Phase')
+  plt.savefig(f'./plots/{title}_Final-infect.png')
 
-  return (G, time_of_diffusion, source_nodes)
+  return (G, sorted_dict, source_nodes)

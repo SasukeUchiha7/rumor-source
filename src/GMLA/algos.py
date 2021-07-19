@@ -6,28 +6,33 @@ from src.GMLA.helpers import *
 
 
 def GMLA(G,O,k0, sigma2, mn):
-  """Main Function
+  """Main Function for GMLA
 
   Parameters:
     G : Graph
     O : Observers node list
     k0 : Constant k0
-    simga2 : Sigma^2 (var) of diffudion time
+    simga2 : Sigma^2 (var) of diffusion time
     mn :  Mean of diffusion time
   Returns:
     sortedScore (list[tuple]) : Sorted scores of node based on the algo. 
   """
-  ##sort obs
+  
   ## filtering k0 nos from O.
   nearestObs = O[0:k0]
+  
   ## selecting first_observer
-  first_obv = O[0]
+  first_obv = nearestObs[0]
 
   ##computing obs delay wrt O[0].
   d = observedDelay(G,nearestObs)
-
+  
+  ## score set
   S = {}
+
+  ## iterator
   v = [first_obv,0]
+
   maxScore = 0
 
   while v[1] >= maxScore:
@@ -37,8 +42,7 @@ def GMLA(G,O,k0, sigma2, mn):
         diffusionTree = nx.bfs_tree(G, source=n)
         mu_n = deterministicDelay(diffusionTree, n, O, mn)
         delta_n = delayCovariance(diffusionTree, O, sigma2)
-        inverse = np.linalg.inv(delta_n)
-        score = (np.exp(-.5 * np.dot(np.dot((d - mu_n).T, inverse), (d - mu_n)))) / (np.sqrt(abs(np.linalg.det(delta_n))))
+        score = (np.exp(-.5 * np.dot(np.dot((d - mu_n).T, np.linalg.inv(delta_n)), (d - mu_n)))) / (np.sqrt(abs(np.linalg.det(delta_n))))
         # print(f" for {n} neighbor of {v[0]}, score: {score}")
         Tv[n] = score[0][0]
     if len(Tv) !=0:

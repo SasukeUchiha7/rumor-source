@@ -3,7 +3,7 @@ import numpy as np
 import math
 
 from src.infect import *
-from src.load import make_graph
+from src.load import load
 from src.GMLA import algos
 from src.color_nodes import coloring
 import src.accuracy as acc
@@ -24,7 +24,7 @@ def run():
       return
 
   title = sys.argv[1]
-  G, node_len = make_graph(title=title)
+  G, node_len = load(title=title)
   G, time_of_diffusion, source_nodes = infect_graph(G, title=title)
   k0 = math.ceil(math.sqrt(len(G)))
   np.random.seed(23)
