@@ -63,5 +63,5 @@ def delayCovariance(T, O, sigma2):
                 c2 = list(nx.all_simple_paths(T, O[0], O[i + 1]))[0]
                 S = [x for x in c1 if x in c2]
                 delta[k][i] = len(S) - 1
-    delta = delta * (sigma2 ** 2)
+    delta = delta * (sigma2)
     return delta

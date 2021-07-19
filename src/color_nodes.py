@@ -8,7 +8,7 @@ Line2D([0], [0], marker='o', color='w', label='Others', markerfacecolor='b', mar
 
 node_color = []
 
-def coloring(title, G, nodes, score_list, O):
+def coloring(title, G, nodes, score_list, O, algo):
     for i in nodes:
         if i in score_list:
             node_color.append('red')
@@ -20,4 +20,4 @@ def coloring(title, G, nodes, score_list, O):
     plt.clf()
     nx.draw(G,with_labels = True, node_size=200, node_color=node_color, alpha=1, linewidths=0.5, width=0.5, edge_color='black')
     plt.legend(_legends, ['Source','Observers','Others'], loc="upper right")
-    plt.savefig(f'./plots/{title}_GMLA.png')
+    plt.savefig(f'./plots/{title}_{algo}.png')

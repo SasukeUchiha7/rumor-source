@@ -18,7 +18,9 @@
 ### Run
 1. To run the project, run **run.py** file
     ```
-    python run.py <filename>
+    python run.py <algo_name> <dataset>
     ```
-    **filename** should be the name of the edgelist file (csv) that should be present in the data folder.
+    **algo_name** : only 'ptva' or 'gmla' is available.
+    **dataset** :should be the name of the edgelist file (csv) that should be present in the data folder.
+
 2. All the plots will be stored in **plots** folder.
