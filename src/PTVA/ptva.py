@@ -10,7 +10,7 @@ def PTVA(G, observers, Ka, sigma2, mn):
     t1 = G.nodes[observers[0]]['time']
     
     ##computing d
-    d = delayVector(G, t1)
+    d = delayVector(G, t1, observers)
     
     ## score
     likelihood = {}
@@ -19,7 +19,7 @@ def PTVA(G, observers, Ka, sigma2, mn):
         bfs = nx.bfs_tree(G, source = s)
         mu_s = mu(bfs,mn, observers,s)
         delta_s = covariance(bfs, sigma2,observers,s)
-        sourceLikelihood = np.dot(np.dot(mu.T, np.linalg.inv(delta_s)), d[s] - (1/2)*mu_s)
+        sourceLikelihood = np.dot(np.dot(mu_s.T, np.linalg.inv(delta_s)), d - (1/2)*mu_s)
         likelihood[s]=sourceLikelihood
     
     sortedLikelihood = sorted(likelihood.items(), key=lambda x : x[1], reverse=True)
