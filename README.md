@@ -24,4 +24,6 @@
     
     **dataset** :should be the name of the edgelist file (csv) that should be present in the data folder.
 
+    One example could be : **python run.py gmla dolphin**
+
 2. All the plots will be stored in **plots** folder.
