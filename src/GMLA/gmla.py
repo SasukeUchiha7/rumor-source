@@ -42,7 +42,7 @@ def GMLA(G,O,k0, sigma2, mn):
       if n not in S:
         diffusionTree = nx.bfs_tree(G, source=n)
         mu_n = mu(diffusionTree, n, O, mn)
-        delta_n = delayCovariance(diffusionTree, O, sigma2)
+        delta_n = covariance(diffusionTree, O, sigma2)
         score = (np.exp(-.5 * np.dot(np.dot((d - mu_n).T, np.linalg.inv(delta_n)), (d - mu_n)))) / (np.sqrt(abs(np.linalg.det(delta_n))))
         # print(f" for {n} neighbor of {v[0]}, score: {score}")
         Tv[n] = score[0][0]

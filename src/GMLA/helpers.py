@@ -33,7 +33,7 @@ def mu(T, s, O, mn):
     mu_n = mn * mu_n
     return mu_n
 
-def delayCovariance(T, O, sigma2):
+def covariance(T, O, sigma2):
     """Calculates the delta_n
     """
     l = len(O)

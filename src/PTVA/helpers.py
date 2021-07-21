@@ -13,12 +13,12 @@ def delayVector(G, t1, observers):
 def nEdges(bfs, s, a):
     """ Returns edge length from s -> a"""
     l = list(nx.all_simple_paths(bfs, s, a))[0]
-    return len(l)
+    return len(l)-1
 
 def intersection(l1, l2):
     temp = set(l2)
     l = [x for x in l1 if x in temp]
-    return len(l)
+    return len(l)-1
 
 def mu(bfs, mn, observers, s):
     """Calcs the determinticDelay w.r.t bfs tree."""
