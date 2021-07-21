@@ -8,6 +8,12 @@
     ```
     This will create and activates the venv.
 
+2. Clone this repo
+    ```
+    git clone https://github.com/SasukeUchiha7/rumor-source.git
+    cd rumor-source
+    ```
+
 2. Install required packages
 
     This project uses some python modules which are listed in the requirements.txt file.
